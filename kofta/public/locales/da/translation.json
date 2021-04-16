@@ -37,7 +37,11 @@
       "startPrivateRoom": "Start et privat rum med dem"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "Start Rum", "refresh": "Opdater" },
+    "home": {
+      "createRoom": "Start Rum",
+      "refresh": "Opdater",
+      "editRoom": "Rediger rummet"
+    },
     "inviteList": {
       "roomGone": "rummet er væk, gå tilbage",
       "shareRoomLink": "Del et link til rummet",
@@ -54,7 +58,8 @@
       "featureText_6": "Drevet af Doge",
       "loginGithub": "Log ind med GitHub",
       "loginTwitter": "Log ind med Twitter",
-      "createTestUser": "Lav en test bruger"
+      "createTestUser": "Lav en test bruger",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "Log ud",
@@ -199,7 +204,9 @@
       "roomSettingsModal": {
         "requirePermission": "kræv tilladelse for at tale",
         "makePublic": "Gør rum offentligt",
-        "makePrivate": "Gør rum privat"
+        "makePrivate": "Gør rum privat",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },

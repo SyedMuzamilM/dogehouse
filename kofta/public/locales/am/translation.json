@@ -38,7 +38,11 @@
       "startPrivateRoom": "ከእነሱ ጋር አንድ የግል ክፍል መጀመር"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "ክፍል ፍጠር", "refresh": "Refresh" },
+    "home": {
+      "createRoom": "ክፍል ፍጠር",
+      "refresh": "Refresh",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "ክፍሉ ጠፋ, ተመለስ",
       "shareRoomLink": "የክፍሉን ሊንክ አጋራ",
@@ -55,7 +59,8 @@
       "featureText_6": "በ Doge የተጎላበተ",
       "loginGithub": "በ GitHub ግባ",
       "loginTwitter": "በ Twitter ግባ",
-      "createTestUser": "የሙከራ ተጠቃሚ ይፍጠሩ"
+      "createTestUser": "የሙከራ ተጠቃሚ ይፍጠሩ",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "ውጣ",
@@ -196,7 +201,9 @@
       "roomSettingsModal": {
         "requirePermission": "መናገር ፈቃድ ይጠይቃል",
         "makePublic": "ክፍሉን ለሁሉም ክፍት ያድርጉ",
-        "makePrivate": "ክፍሉን የግል ያድርጉ"
+        "makePrivate": "ክፍሉን የግል ያድርጉ",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },

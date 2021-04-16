@@ -38,7 +38,11 @@
       "startPrivateRoom": "ابدأ غرفة خاصة معهم"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "ابدأ غرفة", "refresh": "تحديث" },
+    "home": {
+      "createRoom": "ابدأ غرفة",
+      "refresh": "تحديث",
+      "editRoom": "قم بتعديل الغرفة"
+    },
     "inviteList": {
       "roomGone": "انتهت الغرفة، عد إلى الوراء",
       "shareRoomLink": "شارك رابط الغرفة",
@@ -55,7 +59,8 @@
       "featureText_6": "Doge تم التطوير بواسطة",
       "loginGithub": "GitHub التسجيل باستخدام",
       "loginTwitter": "التسجيل باستخدام حساب تويتر",
-      "createTestUser": "إنشاء حساب تجريبي"
+      "createTestUser": "إنشاء حساب تجريبي",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "تسجيل خروج",
@@ -195,7 +200,9 @@
       "roomSettingsModal": {
         "requirePermission": "جعل التحدث بطلب فقط",
         "makePublic": "جعل الغرفة عامة",
-        "makePrivate": "جعل الغرفة خاصة"
+        "makePrivate": "جعل الغرفة خاصة",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },

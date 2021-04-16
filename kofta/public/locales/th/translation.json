@@ -37,7 +37,11 @@
       "startPrivateRoom": "สร้างห้องส่วนตัว"
     },
     "followList": { "followHim": "ติดตาม", "followingHim": "กำลังติดตาม" },
-    "home": { "createRoom": "สร้างห้อง", "refresh": "รีเฟรช" },
+    "home": {
+      "createRoom": "สร้างห้อง",
+      "refresh": "รีเฟรช",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "ไม่พบห้อง, กรุณากลับไปที่หน้าหลัก",
       "shareRoomLink": "แชร์ลิ้งก์ของห้อง",
@@ -54,7 +58,8 @@
       "featureText_6": "ขับเคลื่อนโดย Doge",
       "loginGithub": "เข้าสู่ระบบด้วย GitHub",
       "loginTwitter": "เข้าสู่ระบบด้วย Twitter",
-      "createTestUser": "สร้างผู้ใช้ทดสอบ"
+      "createTestUser": "สร้างผู้ใช้ทดสอบ",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "ออกจากระบบ",
@@ -195,7 +200,9 @@
       "roomSettingsModal": {
         "requirePermission": "ต้องใช้สิทธิ์ในการพูด",
         "makePublic": "ตั้งให้เป็นห้องสาธารณะ",
-        "makePrivate": "ตั้งให้เป็นห้องส่วนตัว"
+        "makePrivate": "ตั้งให้เป็นห้องส่วนตัว",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },

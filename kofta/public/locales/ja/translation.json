@@ -38,7 +38,11 @@
       "startPrivateRoom": "非公開ルームを開始"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "ルーム作成", "refresh": "更新" },
+    "home": {
+      "createRoom": "ルーム作成",
+      "refresh": "更新",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "ルームが削除されました。前のページに戻ります",
       "shareRoomLink": "リンクを共有",
@@ -55,7 +59,8 @@
       "featureText_6": "提供: Doge",
       "loginGithub": "GitHub でログイン",
       "loginTwitter": "Twitter でログイン",
-      "createTestUser": "テストユーザーを作成"
+      "createTestUser": "テストユーザーを作成",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "ログアウト",
@@ -193,7 +198,9 @@
       "roomSettingsModal": {
         "requirePermission": "発言を許可制にする",
         "makePublic": "ルームを公開に変更",
-        "makePrivate": "ルームを非公開に変更"
+        "makePrivate": "ルームを非公開に変更",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },

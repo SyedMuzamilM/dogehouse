@@ -38,7 +38,11 @@
       "startPrivateRoom": "Izveidot privātu istabu ar viņiem"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "Izveidot istabu", "refresh": "Atjaunot" },
+    "home": {
+      "createRoom": "Izveidot istabu",
+      "refresh": "Atjaunot",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "Istaba pazuda, atgriezieties atpakaļ",
       "shareRoomLink": "Dalīties ar saiti uz istabu",
@@ -55,7 +59,8 @@
       "featureText_6": "Darbojas ar Doge",
       "loginGithub": "Ieiet caur GitHub",
       "loginTwitter": "Ieiet caur Twitter",
-      "createTestUser": "Izveidot izmēģinājuma lietotāju"
+      "createTestUser": "Izveidot izmēģinājuma lietotāju",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "Iziet",
@@ -201,7 +206,9 @@
       "roomSettingsModal": {
         "requirePermission": "pieprasīt runāšanas atļauju",
         "makePublic": "padarīt istabu publisku",
-        "makePrivate": "padarīt istabu privātu"
+        "makePrivate": "padarīt istabu privātu",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },

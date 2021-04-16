@@ -37,6 +37,7 @@ export interface ScheduledRoom {
   name: string;
   id: UUID;
   creatorId: UUID;
+  creator: User;
 }
 
 export type User = {
@@ -65,6 +66,7 @@ export type TextToken = MessageToken<"text", string>;
 export type MentionToken = MessageToken<"mention", string>;
 export type LinkToken = MessageToken<"link", string>;
 export type EmoteToken = MessageToken<"emote", string>;
+export type CodeBlockToken = MessageToken<"block", string>;
 
 export type Message = {
   id: UUID;
@@ -73,6 +75,7 @@ export type Message = {
   color: string;
   displayName: string;
   tokens: MessageToken[];
+  username: string;
   deleted?: boolean;
   deleterId?: UUID;
   sentAt: string;
@@ -118,3 +121,5 @@ export type CurrentRoom = Room & {
   activeSpeakerMap: Record<string, boolean>;
   autoSpeaker: boolean;
 };
+
+export type MuteMap = Record<UUID, boolean>;

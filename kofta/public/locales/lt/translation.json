@@ -38,7 +38,11 @@
       "startPrivateRoom": "Sukurti privatų kambarį su jais"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "Sukurti kambarį", "refresh": "Refresh" },
+    "home": {
+      "createRoom": "Sukurti kambarį",
+      "refresh": "Refresh",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "Kambario nebėra, grįžkite atgal",
       "shareRoomLink": "Pasidalinkite nuoroda į kambarį",
@@ -55,7 +59,8 @@
       "featureText_6": "Tvarkomas Doge",
       "loginGithub": "Prisijunkite su GitHub",
       "loginTwitter": "Prisijunkite su Twitter",
-      "createTestUser": "Sukurkite testavimo naudotoją"
+      "createTestUser": "Sukurkite testavimo naudotoją",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "Atsijungti",
@@ -198,7 +203,9 @@
       "roomSettingsModal": {
         "requirePermission": "Reikalingas patvirtinimas kalbėti",
         "makePublic": "Padaryti kambarį viešą",
-        "makePrivate": "Padaryti kambarį privatų"
+        "makePrivate": "Padaryti kambarį privatų",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },

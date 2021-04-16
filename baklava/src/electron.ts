@@ -11,80 +11,68 @@ import {
 import i18n from "i18next";
 import Backend from "i18next-node-fs-backend";
 import { autoUpdater } from "electron-updater";
-import { RegisterKeybinds } from "./utils/keybinds";
+import { RegisterKeybinds, exitApp } from "./utils/keybinds";
 import { HandleVoiceTray } from "./utils/tray";
-import { ALLOWED_HOSTS, isLinux, isMac, MENU_TEMPLATE } from "./constants";
-import url from "url";
+import {
+  ALLOWED_HOSTS,
+  isLinux,
+  isMac,
+  isWin,
+  MENU_TEMPLATE,
+} from "./constants";
 import path from "path";
 import { StartNotificationHandler } from "./utils/notifications";
 import { bWindowsType } from "./types";
+import electronLogger from "electron-log";
+import { setPresence, startRPC } from "./utils/rpc";
 
 let mainWindow: BrowserWindow;
 let tray: Tray;
 let menu: Menu;
-let splash;
+let splash: BrowserWindow;
 
 export let bWindows: bWindowsType;
 
 export const __prod__ = app.isPackaged;
 const instanceLock = app.requestSingleInstanceLock();
+let shouldShowWindow = false;
+let windowShowInterval: NodeJS.Timeout;
+let skipUpdateTimeout: NodeJS.Timeout;
 
 i18n.use(Backend);
+
+electronLogger.transports.file.level = "debug";
+autoUpdater.logger = electronLogger;
+// just in case we have to revert to a build
+autoUpdater.allowDowngrade = true;
 
 async function localize() {
   await i18n.init({
     lng: app.getLocale(),
-    debug: !__prod__,
-    backend:{
+    debug: false,
+    backend: {
       // path where resources get loaded from
-      loadPath: path.join(__dirname, '../locales/{{lng}}/translate.json'),
+      loadPath: path.join(__dirname, "../locales/{{lng}}/translate.json"),
     },
     interpolation: {
-      escapeValue: false
+      escapeValue: false,
     },
     saveMissing: true,
-    fallbackLng: "en"
+    fallbackLng: "en",
   });
 }
 
-function createWindow() {
+function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 560,
-    height: 1000,
+    width: 1500,
+    height: 800,
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
     },
+    frame: isLinux,
     show: false,
-  });
-
-  splash = new BrowserWindow({
-    width: 810,
-    height: 610,
-    transparent: true,
-    frame: false,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  });
-  splash.loadURL(
-    url.format({
-      pathname: path.join(
-        `${__dirname}`,
-        "../resources/splash/splash-screen.html"
-      ),
-      protocol: "file:",
-      slashes: true,
-    })
-  );
-  splash.webContents.on('did-finish-load', () => {
-    splash.webContents.send('@locale/text', {
-      title: i18n.t('common.title'),
-      check: i18n.t('splash.check'),
-      download: i18n.t('splash.download'),
-      relaunch: i18n.t('splash.relaunch'),
-      launch: i18n.t('splash.launch')
-    });
   });
 
   // applying custom menu
@@ -98,7 +86,7 @@ function createWindow() {
     mainWindow.webContents.openDevTools();
   }
   mainWindow.loadURL(
-    __prod__ ? `https://dogehouse.tv/` : "http://localhost:3000/"
+    __prod__ ? `https://dogehouse.tv/` : "http://localhost:3000"
   );
 
   bWindows = {
@@ -106,17 +94,10 @@ function createWindow() {
     overlay: undefined,
   };
 
-  // we skip checking for updates in dev, so we need to show the screen ourselves
-  if (!__prod__) {
-    mainWindow.once("ready-to-show", () => {
-      setTimeout(() => {
-        splash.destroy();
-        mainWindow.show();
-      }, 2500);
-    });
-  }
-
-  // crashes on mac
+  mainWindow.once("ready-to-show", () => {
+    shouldShowWindow = true;
+  });
+  // crashes on mac only in dev
   // systemPreferences.askForMediaAccess("microphone");
   ipcMain.on("request-mic", async (event, _serviceName) => {
     const isAllowed: boolean = await systemPreferences.askForMediaAccess(
@@ -124,9 +105,12 @@ function createWindow() {
     );
     event.returnValue = isAllowed;
   });
-  if (!isMac) {
+  if (isMac) {
     mainWindow.webContents.send("@alerts/permissions", true);
   }
+
+  // start rpc
+  startRPC();
 
   // registers global keybinds
   RegisterKeybinds(bWindows);
@@ -155,7 +139,7 @@ function createWindow() {
       shell.openExternal(url);
     } else {
       if (
-        urlHost == ALLOWED_HOSTS[3] &&
+        urlHost == ALLOWED_HOSTS[4] &&
         urlObj.pathname !== "/login" &&
         urlObj.pathname !== "/session" &&
         urlObj.pathname !== "/sessions/two-factor"
@@ -167,19 +151,86 @@ function createWindow() {
   };
   mainWindow.webContents.on("new-window", handleLinks);
   mainWindow.webContents.on("will-navigate", handleLinks);
+
+  ipcMain.on("@dogehouse/loaded", (event, doge) => {
+    if (isMac) mainWindow.maximize();
+  });
+  ipcMain.on("@app/quit", (event, args) => {
+    mainWindow.close();
+  });
+  ipcMain.on("@app/maximize", (event, args) => {
+    if (isMac) {
+      if (mainWindow.isFullScreenable()) {
+        mainWindow.setFullScreen(!mainWindow.isFullScreen());
+      }
+    } else {
+      if (mainWindow.maximizable) {
+        if (mainWindow.isMaximized()) {
+          mainWindow.unmaximize();
+        } else {
+          mainWindow.maximize();
+        }
+      }
+    }
+  });
+  ipcMain.on("@app/minimize", (event, args) => {
+    if (mainWindow.minimizable) {
+      mainWindow.minimize();
+    }
+  });
+
+  ipcMain.on("@app/hostPlatform", (event, args) => {
+    event.sender.send("@app/hostPlatform", {
+      isLinux,
+      isMac,
+      isWin,
+    });
+  });
+}
+
+function createSpalshWindow() {
+  splash = new BrowserWindow({
+    width: 300,
+    height: 410,
+    transparent: true,
+    frame: false,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  splash.loadFile(
+    path.join(__dirname, "../resources/splash/splash-screen.html")
+  );
+  splash.webContents.on("did-finish-load", () => {
+    splash.webContents.send("@locale/text", {
+      title: i18n.t("common.title"),
+      check: i18n.t("splash.check"),
+      download: i18n.t("splash.download"),
+      relaunch: i18n.t("splash.relaunch"),
+      launch: i18n.t("splash.launch"),
+      skipCheck: i18n.t("splash.skipCheck"),
+      notfound: i18n.t("splash.notfound"),
+    });
+  });
 }
 
 if (!instanceLock) {
   if (process.env.hotReload) {
     app.relaunch();
   }
-  app.quit();
+  exitApp();
 } else {
   app.on("ready", () => {
-    localize().then(() => {
-      createWindow();
-      if (__prod__) autoUpdater.checkForUpdates();
-    })
+    localize().then(async () => {
+      createSpalshWindow();
+      if (!__prod__) skipUpdateCheck(splash);
+      if (__prod__ && !isLinux) await autoUpdater.checkForUpdates();
+      if (isLinux && __prod__) {
+        skipUpdateCheck(splash);
+      }
+    });
   });
   app.on("second-instance", (event, argv, workingDirectory) => {
     if (mainWindow) {
@@ -190,36 +241,64 @@ if (!instanceLock) {
   });
 }
 
-autoUpdater.on('update-available', info => {
-  splash.webContents.send('download', info);
+autoUpdater.on("update-available", (info) => {
+  splash.webContents.send("download", info);
+  // skip the update if it takes more than 1 minute
+  skipUpdateTimeout = setTimeout(() => {
+    skipUpdateCheck(splash);
+  }, 60000);
 });
-autoUpdater.on('download-progress', progress => {
-  splash.webContents.send('percentage', progress.percent);
-  splash.setProgressBar(progress.percent/100);
+autoUpdater.on("download-progress", (progress) => {
+  let prog = Math.floor(progress.percent);
+  splash.webContents.send("percentage", prog);
+  splash.setProgressBar(prog / 100);
+  // stop timeout that skips the update
+  if (skipUpdateTimeout) {
+    clearTimeout(skipUpdateTimeout);
+  }
 });
-autoUpdater.on('update-downloaded', () => {
-  splash.webContents.send('relaunch');
+autoUpdater.on("update-downloaded", () => {
+  splash.webContents.send("relaunch");
+  // stop timeout that skips the update
+  if (skipUpdateTimeout) {
+    clearTimeout(skipUpdateTimeout);
+  }
   setTimeout(() => {
     autoUpdater.quitAndInstall();
   }, 1000);
 });
-autoUpdater.on('update-not-available', () => {
-  splash.webContents.send('launch');
-  mainWindow.once("ready-to-show", () => {
-    setTimeout(() => {
-      splash.destroy();
-      mainWindow.show();
-    }, 500);
-  });
+autoUpdater.on("update-not-available", () => {
+  skipUpdateCheck(splash);
 });
-
-app.on("window-all-closed", () => {
-  app.quit();
+app.on("window-all-closed", async () => {
+  await exitApp();
 });
 app.on("activate", () => {
   if (mainWindow === null) {
     localize().then(() => {
-      createWindow();
-    })
+      createMainWindow();
+    });
   }
 });
+
+function skipUpdateCheck(splash: BrowserWindow) {
+  createMainWindow();
+  splash.webContents.send("notfound");
+  if (isLinux || !__prod__) {
+    splash.webContents.send("skipCheck");
+  }
+  // stop timeout that skips the update
+  if (skipUpdateTimeout) {
+    clearTimeout(skipUpdateTimeout);
+  }
+  windowShowInterval = setInterval(() => {
+    if (shouldShowWindow) {
+      splash.webContents.send("launch");
+      clearInterval(windowShowInterval);
+      setTimeout(() => {
+        splash.destroy();
+        mainWindow.show();
+      }, 800);
+    }
+  }, 1000);
+}

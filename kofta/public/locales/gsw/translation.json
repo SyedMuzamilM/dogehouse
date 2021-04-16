@@ -38,7 +38,11 @@
       "startPrivateRoom": "En private Ruum mit däm Benutzer starte"
     },
     "followList": { "followHim": "Folge", "followingHim": "Am folge" },
-    "home": { "createRoom": "Ruum erstelle", "refresh": "Aktualisiere" },
+    "home": {
+      "createRoom": "Ruum erstelle",
+      "refresh": "Aktualisiere",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "Ruum isch nid gfunge worde! Zrugg",
       "shareRoomLink": "Link zum Ruum teile",
@@ -55,7 +59,8 @@
       "featureText_6": "Atribe vo Doge",
       "loginGithub": "mit GitHub amälde",
       "loginTwitter": "mit Twitter amälde",
-      "createTestUser": "Testnutzer erstelle"
+      "createTestUser": "Testnutzer erstelle",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "Abmälde",
@@ -175,7 +180,9 @@
       "roomSettingsModal": {
         "requirePermission": "Berechtigung zum Rede verlange",
         "makePublic": "Ruum öffentlech mache",
-        "makePrivate": "Ruum privat mache"
+        "makePrivate": "Ruum privat mache",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     },
     "userVolumeSlider": {

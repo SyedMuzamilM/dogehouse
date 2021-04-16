@@ -37,7 +37,11 @@
       "startPrivateRoom": "Start een privé kamer met deze persoon"
     },
     "followList": { "followHim": "Volg", "followingHim": "Volgend" },
-    "home": { "createRoom": "Kamer maken", "refresh": "Verversen" },
+    "home": {
+      "createRoom": "Kamer maken",
+      "refresh": "Verversen",
+      "editRoom": "Kamer aanpassen"
+    },
     "inviteList": {
       "roomGone": "Kamer bestaat niet, ga terug",
       "shareRoomLink": "Link van deze kamer delen",
@@ -54,7 +58,8 @@
       "featureText_6": "Mogelijk gemaakt door Doge",
       "loginGithub": "Log in met GitHub",
       "loginTwitter": "Log in met Twitter",
-      "createTestUser": "Maak een test gebruiker"
+      "createTestUser": "Maak een test gebruiker",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "Afmelden",
@@ -67,7 +72,7 @@
     "notFound": {
       "whoopsError": "Oeps! Deze pagina is verloren gegaan tijdens het gesprek.",
       "goHomeMessage": "Maak je geen zorgen. Je kan",
-      "goHomeLinkText": "terug naar de homepagina"
+      "goHomeLinkText": "Terug naar de homepagina"
     },
     "room": {
       "speakers": "Sprekers",
@@ -87,7 +92,7 @@
       "followingHim": "Volgend",
       "copyProfileUrl": "kopieer profiel url",
       "urlCopied": "URL gekopieerd naar klembord",
-      "unfollow": "Unfollow"
+      "unfollow": "Ontvolgen"
     },
     "voiceSettings": {
       "header": "Spraakinstellingen",
@@ -197,7 +202,9 @@
       "roomSettingsModal": {
         "requirePermission": "Toestemming nodig om te spreken",
         "makePublic": "Maak kamer openbaar",
-        "makePrivate": "Maak kamer privé"
+        "makePrivate": "Maak kamer privé",
+        "renamePublic": "Openbare kamer naam aanpassen",
+        "renamePrivate": "Privé kamer naam aanpassen"
       }
     }
   },

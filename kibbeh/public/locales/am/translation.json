@@ -38,7 +38,11 @@
       "startPrivateRoom": "ከእነሱ ጋር አንድ የግል ክፍል መጀመር"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "ክፍል ፍጠር", "refresh": "Refresh" },
+    "home": {
+      "createRoom": "ክፍል ፍጠር",
+      "refresh": "Refresh",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "ክፍሉ ጠፋ, ተመለስ",
       "shareRoomLink": "የክፍሉን ሊንክ አጋራ",
@@ -55,7 +59,8 @@
       "featureText_6": "በ Doge የተጎላበተ",
       "loginGithub": "በ GitHub ግባ",
       "loginTwitter": "በ Twitter ግባ",
-      "createTestUser": "የሙከራ ተጠቃሚ ይፍጠሩ"
+      "createTestUser": "የሙከራ ተጠቃሚ ይፍጠሩ",
+      "loginDiscord": "Login with Discord"
     },
     "myProfile": {
       "logout": "ውጣ",
@@ -63,7 +68,8 @@
       "voiceSettings": "የአወራር ድምጽ ቅንብሮች",
       "soundSettings": "የድምጽ ቅንብሮች",
       "deleteAccount": "መለያህን ደልት",
-      "overlaySettings": "go to overlay settings"
+      "overlaySettings": "go to overlay settings",
+      "couldNotFindUser": "Sorry, we could not find that user"
     },
     "notFound": {
       "whoopsError": "ውይ ውይ! ይህ ገጽ ውይይት ውስጥ ጠፋ፡፡",
@@ -160,7 +166,8 @@
         "roomName": "የክፍል ስም",
         "roomDescription": "ክፍል መግለጫ",
         "descriptionError": "ከፍተኛ ርዝመት 500",
-        "nameError": "ከ 2 እስክ 60 ፊደላአት ረዝመት ምሆን አለበት"
+        "nameError": "ከ 2 እስክ 60 ፊደላአት ረዝመት ምሆን አለበት",
+        "subtitle": "Fill the following fields to start a new room"
       },
       "invitedToJoinRoomModal": {
         "newRoomCreated": "አዲስ ክፍል ተፈጥሯል",
@@ -191,12 +198,36 @@
         "banFromRoom": "ከ ክፍል ያግዱ",
         "goBackToListener": "አዳማጭ ይመለሱ",
         "deleteMessage": "ይህን መልዕክት ሰርዝ",
-        "makeRoomCreator": "make room admin"
+        "makeRoomCreator": "make room admin",
+        "unBanFromChat": "Unban from Chat"
       },
       "roomSettingsModal": {
         "requirePermission": "መናገር ፈቃድ ይጠይቃል",
         "makePublic": "ክፍሉን ለሁሉም ክፍት ያድርጉ",
-        "makePrivate": "ክፍሉን የግል ያድርጉ"
+        "makePrivate": "ክፍሉን የግል ያድርጉ",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
+      }
+    },
+    "followingOnline": {
+      "people": "People",
+      "online": "ONLINE",
+      "noOnline": "You have 0 friends online right now",
+      "showMore": "Show more"
+    },
+    "upcomingRoomsCard": {
+      "upcomingRooms": "Upcoming rooms",
+      "exploreMoreRooms": "Explore More Rooms"
+    },
+    "search": { "placeholder": "Search for rooms, users or categories" },
+    "settingsDropdown": {
+      "profile": "Profile",
+      "language": "Language",
+      "reportABug": "Report A Bug",
+      "useOldVersion": "Use Old Version",
+      "logOut": {
+        "button": "Log out",
+        "modalSubtitle": "Are you sure you want to logout?"
       }
     }
   },
@@ -240,6 +271,7 @@
       "approachingGalaxy": "Approaching galaxy",
       "galacticDoge": "Galactic Doge",
       "spottedLife": "Planet with life spotted"
-    }
+    },
+    "feed": { "yourFeed": "Your Feed" }
   }
 }

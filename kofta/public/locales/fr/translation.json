@@ -36,7 +36,11 @@
       "startPrivateRoom": "lancer une salle privée avec eux"
     },
     "followList": { "followHim": "suivre", "followingHim": "abonné" },
-    "home": { "createRoom": "Créer une salle", "refresh": "Actualiser" },
+    "home": {
+      "createRoom": "Créer une salle",
+      "refresh": "Actualiser",
+      "editRoom": "Modifier la salle"
+    },
     "inviteList": {
       "roomGone": "salle indisponible, retour",
       "shareRoomLink": "partager le lien de la salle",
@@ -53,7 +57,8 @@
       "featureText_6": "Alimenté au Doge",
       "loginGithub": "se connecter avec GitHub",
       "loginTwitter": "se connecter avec Twitter",
-      "createTestUser": "créer un utilisateur de test"
+      "createTestUser": "créer un utilisateur de test",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "se déconnecter",
@@ -181,7 +186,9 @@
       "roomSettingsModal": {
         "requirePermission": "requiert la permission de parler",
         "makePublic": "rendre la salle publique",
-        "makePrivate": "rendre la salle publique"
+        "makePrivate": "rendre la salle publique",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     },
     "userVolumeSlider": {

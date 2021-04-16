@@ -38,7 +38,11 @@
       "startPrivateRoom": "Sjtart inge perseunlijke kamer mit disè persoon"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "Kamer make", "refresh": "Verviesje" },
+    "home": {
+      "createRoom": "Kamer make",
+      "refresh": "Verviesje",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "Kamer besjteed niet, gank teruk",
       "shareRoomLink": "Link van disè kamer deijle",
@@ -55,7 +59,8 @@
       "featureText_6": "Mögelik gemak durch Doge",
       "loginGithub": "Log in mit GitHub",
       "loginTwitter": "Log in mit Twitter",
-      "createTestUser": "Maak inge test gebroeker"
+      "createTestUser": "Maak inge test gebroeker",
+      "loginDiscord": "login with Discord"
     },
     "myProfile": {
       "logout": "Oetlogge",
@@ -198,7 +203,9 @@
       "roomSettingsModal": {
         "requirePermission": "Toesjtimming neudig om te sjpreke",
         "makePublic": "Maak kamer veur ideringe",
-        "makePrivate": "Maak kamer perseunlijke"
+        "makePrivate": "Maak kamer perseunlijke",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },

@@ -7,15 +7,15 @@
     "yes": "सही",
     "no": "गलत",
     "cancel": "रद्द करें",
-    "save": "save",
-    "edit": "edit",
-    "delete": "delete",
-    "joinRoom": "join room",
-    "copyLink": "copy link",
-    "copied": "copied",
+    "save": "सेव",
+    "edit": "संपादित करे",
+    "delete": "हटाओ",
+    "joinRoom": "कमरे में शामिल हों",
+    "copyLink": "कॉपी",
+    "copied": "कॉपी हो गया",
     "formattedIntlDate": "{{date, intlDate}}",
     "formattedIntlTime": "{{time, intlTime}}",
-    "requestPermissions": "Please note running DogeHouse without accessibility permissions may cause unwanted errors"
+    "requestPermissions": "कृपया ध्यान दें कि एक्सेसिबिलिटी परमिशन के बिना डॉगहाउस चलाना अवांछित त्रुटियों का कारण हो सकता है"
   },
   "header": {
     "_comment": "Main Header UI Internationalization Strings",
@@ -37,7 +37,11 @@
       "startPrivateRoom": "उनके साथ एक प्राइवेट रूम शुरू करें"
     },
     "followList": { "followHim": "follow", "followingHim": "following" },
-    "home": { "createRoom": "रूम बनाये", "refresh": "Refresh" },
+    "home": {
+      "createRoom": "रूम बनाये",
+      "refresh": "Refresh",
+      "editRoom": "Edit Room"
+    },
     "inviteList": {
       "roomGone": "रूम गया, वापस जाए",
       "shareRoomLink": "रूम की लिंक शेयर करें",
@@ -52,9 +56,10 @@
       "featureText_4": "Open Source",
       "featureText_5": "Text Chat",
       "featureText_6": "Powered by Doge",
-      "loginGithub": "login with GitHub",
-      "loginTwitter": "login with Twitter",
-      "createTestUser": "create test user"
+      "loginGithub": "log in with GitHub",
+      "loginTwitter": "log in with Twitter",
+      "createTestUser": "create test user",
+      "loginDiscord": "log in with Discord"
     },
     "myProfile": {
       "logout": "logout",
@@ -194,7 +199,9 @@
       "roomSettingsModal": {
         "requirePermission": "बोलने की अनुमति की आवश्यकता है",
         "makePublic": "रूम को सार्वजनिक करें",
-        "makePrivate": "रूम को प्राइवेट करें!"
+        "makePrivate": "रूम को प्राइवेट करें!",
+        "renamePublic": "Set public room name",
+        "renamePrivate": "Set private room name"
       }
     }
   },
