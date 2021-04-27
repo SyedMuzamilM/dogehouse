@@ -141,5 +141,23 @@ defmodule Beef.Access.Users do
     end
   end
 
-  defdelegate get_current_room_id(user_id), to: Onion.UserSession
+  def get_current_room_id(user_id) do
+    try do
+      Onion.UserSession.get_current_room_id(user_id)
+    catch
+      _, _ ->
+        case get_by_id(user_id) do
+          nil -> nil
+          %{currentRoomId: id} -> id
+        end
+    end
+  end
+
+  def get_by_api_key(api_key) do
+    Repo.get_by(User, apiKey: api_key)
+  end
+
+  def count_bot_accounts(user_id) do
+    Repo.one(from(u in User, select: fragment("count(*)"), where: u.botOwnerId == ^user_id))
+  end
 end

@@ -71,23 +71,19 @@ const UserPreview: React.FC<{
     return <div className={`flex text-primary-100`}>This user is gone.</div>;
   }
 
-  // @todo pretty sure this is some what bugged
-  // will add it back when 100% works
-  // const setNewCreatorButton = (
-  //   <Button
-  //     onClick={() => {
-  //       onClose();
-  //       changeRoomCreator([id]);
-  //     }}
-  //   >
-  //     {t("components.modals.profileModal.makeRoomCreator")}
-  //   </Button>
-  // );
-
   const canDoModStuffOnThisUser = !isMe && (iAmCreator || iAmMod) && !isCreator;
 
   // [shouldShow, key, onClick, text]
   const buttonData = [
+    [
+      iAmCreator && !isMe && roomPermissions?.isSpeaker,
+      "changeRoomCreator",
+      () => {
+        onClose();
+        changeRoomCreator([id]);
+      },
+      t("components.modals.profileModal.makeRoomCreator"),
+    ],
     [
       !isMe && iAmCreator,
       "makeMod",
@@ -184,16 +180,16 @@ const UserPreview: React.FC<{
         />
       </div>
       {!isMe && (isCreator || roomPermissions?.isSpeaker) ? (
-        <div className={`flex bg-primary-800 pb-3`}>
+        <div className={`flex pb-3 bg-primary-800`}>
           <VolumeSliderController userId={id} />
         </div>
       ) : null}
-      <div className="flex mt-1 px-6 flex-col">
+      <div className="flex px-6 flex-col bg-primary-800">
         {buttonData.map(([shouldShow, key, onClick, text]) => {
           return shouldShow ? (
             <Button
               color="secondary"
-              className={`mb-3`}
+              className={`my-1 text-base`}
               key={key}
               onClick={onClick}
             >
