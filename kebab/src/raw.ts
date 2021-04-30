@@ -5,6 +5,7 @@ import { User, UUID } from "./entities";
 
 const heartbeatInterval = 8000;
 const apiUrl = "wss://api.dogehouse.tv/socket";
+// const apiUrl = "ws://localhost:4001/socket";
 const connectionTimeout = 15000;
 
 export type Token = string;
@@ -37,8 +38,8 @@ export type Connection = {
     handler: ListenerHandler<Data>
   ) => () => void;
   user: User;
-  initialCurrentRoomId?: string;
   send: (opcode: Opcode, data: unknown, fetchId?: FetchID) => void;
+  sendCast: (opcode: Opcode, data: unknown, fetchId?: FetchID) => void;
   fetch: (
     opcode: Opcode,
     data: unknown,
@@ -64,12 +65,14 @@ export const connect = (
     url = apiUrl,
     fetchTimeout,
     getAuthOptions,
+    waitToReconnect,
   }: {
     logger?: Logger;
     onConnectionTaken?: () => void;
     onClearTokens?: () => void;
     url?: string;
     fetchTimeout?: number;
+    waitToReconnect?: boolean;
     getAuthOptions?: () => Partial<{
       reconnectToVoice: boolean;
       currentRoomId: string | null;
@@ -134,7 +137,9 @@ export const connect = (
         socket.close();
         onClearTokens();
       }
-      reject(error);
+      if (!waitToReconnect) {
+        reject(error);
+      }
     });
 
     socket.addEventListener("message", (e) => {
@@ -169,8 +174,8 @@ export const connect = (
             return () => listeners.splice(listeners.indexOf(listener), 1);
           },
           user: message.d.user,
-          initialCurrentRoomId: message.d.currentRoom?.id,
           send: apiSend,
+          sendCast: api2Send,
           sendCall: (
             opcode: Opcode,
             parameters: unknown,

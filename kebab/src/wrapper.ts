@@ -20,6 +20,7 @@ import {
   GetRoomUsersResponse,
   NewRoomDetailsResponse,
   InvitationToRoomResponse,
+  CreateBotResponse,
 } from "./responses";
 
 type Handler<Data> = (data: Data) => void;
@@ -108,6 +109,16 @@ export const wrap = (connection: Connection) => ({
       ),
   },
   mutation: {
+    roomUpdate: (data: {
+      name?: string;
+      privacy?: string;
+      description?: string;
+      autoSpeaker?: boolean;
+    }): Promise<void> => connection.sendCall("room:update", data),
+    roomBan: (userId: string, shouldBanIp?: boolean): Promise<void> =>
+      connection.sendCast("room:ban", { userId, shouldBanIp }),
+    setDeaf: (isDeafened: boolean): Promise<Record<string, never>> =>
+      connection.sendCall("room:deafen", { deafened: isDeafened }),
     userCreateBot: (username: string): Promise<CreateBotResponse> =>
       connection.sendCall(`user:create_bot`, { username }),
     ban: (username: string, reason: string) =>
@@ -138,8 +149,6 @@ export const wrap = (connection: Connection) => ({
     askToSpeak: () => connection.send(`ask_to_speak`, {}),
     inviteToRoom: (userId: string) =>
       connection.send(`invite_to_room`, { userId }),
-    setAutoSpeaker: (value: boolean) =>
-      connection.send(`set_auto_speaker`, { value }),
     speakingChange: (value: boolean) =>
       connection.send(`speaking_change`, { value }),
     unbanFromRoom: (userId: string): Promise<void> =>
@@ -159,8 +168,6 @@ export const wrap = (connection: Connection) => ({
       connection.send("add_speaker", { userId }),
     deleteRoomChatMessage: (userId: string, messageId: string): Promise<void> =>
       connection.send("delete_room_chat_message", { userId, messageId }),
-    blockFromRoom: (userId: string): Promise<void> =>
-      connection.send("block_from_room", { userId }),
     unbanFromRoomChat: (userId: string): Promise<void> =>
       connection.send("unban_from_room_chat", { userId }),
     banFromRoomChat: (userId: string): Promise<void> =>
@@ -169,8 +176,6 @@ export const wrap = (connection: Connection) => ({
       connection.send("set_listener", { userId }),
     setMute: (isMuted: boolean): Promise<Record<string, never>> =>
       connection.fetch("mute", { value: isMuted }),
-    setDeaf: (isDeafened: boolean): Promise<Record<string, never>> =>
-      connection.fetch("room:deafen", { deafened: isDeafened }),
     leaveRoom: (): Promise<{ roomId: UUID }> =>
       connection.fetch("leave_room", {}, "you_left_room"),
     createRoom: (data: {

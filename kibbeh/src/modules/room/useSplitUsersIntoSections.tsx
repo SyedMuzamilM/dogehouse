@@ -48,6 +48,7 @@ export const useSplitUsersIntoSections = ({
         <img
           src={isCreator ? `/emotes/coolhouse.png` : `/emotes/dogehouse.png`}
           alt={isCreator ? `admin` : `mod`}
+          title={isCreator ? `Administrator` : `Moderator`}
           style={{ marginLeft: 4 }}
           className={`w-3 h-3 ml-1`}
         />
@@ -64,6 +65,7 @@ export const useSplitUsersIntoSections = ({
         key={u.id}
         src={u.avatarUrl}
         username={u.username}
+        isBot={!!u.botOwnerId}
         activeSpeaker={
           canSpeak && !isMuted && !isDeafened && u.id in activeSpeakerMap
         }
@@ -80,9 +82,8 @@ export const useSplitUsersIntoSections = ({
 
   if (canIAskToSpeak) {
     speakers.push(
-      <div className={`flex justify-center`}>
+      <div key="megaphone" className={`flex justify-center`}>
         <BoxedIcon
-          key="megaphone"
           onClick={() => {
             modalConfirm("Would you like to ask to speak?", () => {
               wrap(conn).mutation.askToSpeak();
